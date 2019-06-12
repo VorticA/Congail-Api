@@ -9,9 +9,12 @@
 namespace App;
 
 
+use App\Controllers\ArticlesController;
 use App\Database\DatabaseQueryer;
+use App\Hash\Hasher;
 use App\Models\Article;
 use App\Repos\ArticleRepository;
+use App\Repos\UserRepository;
 
 class Application
 {
@@ -22,10 +25,14 @@ class Application
 
             //$router = new Router(new ControllerFactory($pdo));
             //$router->Route();
+            $testpdo = new \PDO("mysql:host=" . DB_URL . ";port=" . DB_PORT . ";dbname=" . DB_NAME, DB_USERNAME, DB_PASSWORD);
+            $queryer = new DatabaseQueryer($testpdo);
+            $articleRepo = new ArticleRepository($queryer);
+            $userRepo = new UserRepository($queryer);
+            $hasher = new Hasher(ENC_PREFIX, ENC_ALGO);
 
-            $repo = new ArticleRepository(new DatabaseQueryer($pdo));
-            $article = new Article("Goshko", "Goshko is a bad boy", 7);
-            var_dump($repo->getLatestArticles(2));
+            $controller = new ArticlesController($articleRepo, $userRepo, $hasher);
+            $controller->uploadArticle(['title'=>'Pesho', 'text'=>'Pesho is another boy.'], ['userId'=>'7', 'password'=>'passwordforadmin']);
         }
         catch (\Exception $e)
         {

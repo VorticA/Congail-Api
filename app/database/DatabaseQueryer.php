@@ -19,6 +19,7 @@ class DatabaseQueryer implements iDatabaseQueryer
     {
         $this->pdo = $pdo;
         $this->pdo->setAttribute(\PDO::ATTR_EMULATE_PREPARES, FALSE);
+        $this->pdo->setAttribute( \PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION );
     }
 
 

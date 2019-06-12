@@ -40,9 +40,10 @@ class ArticleRepository implements iArticleRepository
 
     public function updateArticle(iArticle $article, int $id)
     {
+        var_dump($article);
         $this->queryer->
-        prepare("UPDATE " . DB_NAME . "." . DB_ARTICLES . " SET title=?, text=?, post_date=DATE_ADD(now(), INTERVAL 8 HOUR), poster_id=? WHERE id=?;")->
-        execute([$article->getTitle(), $article->getText(), $article->getPosterId(), $id]);
+        prepare("UPDATE " . DB_NAME . "." . DB_ARTICLES . " SET title=?, text=?, post_date=DATE_ADD(now(), INTERVAL 8 HOUR) WHERE id=?;")->
+        execute([$article->getTitle(), $article->getText(), $id]);
     }
 
     public function deleteArticleById($id)

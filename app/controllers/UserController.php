@@ -67,13 +67,15 @@ class UserController implements iUserController
         if (isset($data['userId']) && isset($data['password']))
         {
             $user = $this->repository->getUserById($data['userId']);
-            if ($this->hasher->MatchPasswords($data['password'], $user->getPassword()))
-            {
-                echo json_encode(['hasUser' => true, 'username' => $user->getUsername(), 'email' => $user->getEmail(), 'role' => $user->getRoleId()]);
+
+            if (isset($user)) {
+                if ($this->hasher->MatchPasswords($data['password'], $user->getPassword())) {
+                    echo json_encode(['hasUser' => true, 'username' => $user->getUsername(), 'email' => $user->getEmail(), 'role' => $user->getRoleId()]);
+                } else throw new Exception("Invalid credentials!");
             }
-            else echo json_encode(['hasUser' => false]);
+            else throw new Exception("Invalid credentials.");
         }
-        else echo json_encode(['hasUser' => false]);
+        else throw new Exception("Invalid credentials.");
     }
 
     /**
