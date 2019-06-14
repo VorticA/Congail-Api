@@ -8,10 +8,13 @@
 
 namespace App;
 
+use App\Controllers\ArticlesController;
+use App\Controllers\Front\FrontArticleHandler;
 use App\Controllers\Front\FrontUserHandler;
 use App\Controllers\UserController;
 use App\Database\DatabaseQueryer;
 use App\Hash\Hasher;
+use App\Repos\ArticleRepository;
 use App\Repos\UserRepository;
 
 include_once('pdo.php');
@@ -42,5 +45,25 @@ class ControllerFactory
             else
                 throw new \Exception("Invalid command!");
         }
+        else if($data['handler']=="article")
+        {
+            $db = new DatabaseQueryer($this->pdo);
+            $hasher = new Hasher(ENC_PREFIX, ENC_ALGO);
+            $articleRepo = new ArticleRepository($db);
+            $userRepo = new UserRepository($db);
+            $articleController = new ArticlesController($articleRepo, $userRepo, $hasher);
+            $handler = new FrontArticleHandler($articleController, $_POST, $_SESSION);
+            if ($data['method']=="latest")
+                $handler->latestHandler();
+            else if($data['method']=="edit")
+                $handler->editHandler();
+            else if($data['method']=="delete")
+                $handler->deleteHandler();
+            else if($data['method']=="upload")
+                $handler->uploadHandler();
+            else throw new \Exception("Invalid command!");
+        }
+        else
+            throw new \Exception("Invalid command!");
     }
 }

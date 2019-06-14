@@ -23,16 +23,8 @@ class Application
         {
             include_once('pdo.php');
 
-            //$router = new Router(new ControllerFactory($pdo));
-            //$router->Route();
-            $testpdo = new \PDO("mysql:host=" . DB_URL . ";port=" . DB_PORT . ";dbname=" . DB_NAME, DB_USERNAME, DB_PASSWORD);
-            $queryer = new DatabaseQueryer($testpdo);
-            $articleRepo = new ArticleRepository($queryer);
-            $userRepo = new UserRepository($queryer);
-            $hasher = new Hasher(ENC_PREFIX, ENC_ALGO);
-
-            $controller = new ArticlesController($articleRepo, $userRepo, $hasher);
-            $controller->uploadArticle(['title'=>'Pesho', 'text'=>'Pesho is another boy.'], ['userId'=>'7', 'password'=>'passwordforadmin']);
+            $router = new Router(new ControllerFactory($pdo));
+            $router->Route();
         }
         catch (\Exception $e)
         {

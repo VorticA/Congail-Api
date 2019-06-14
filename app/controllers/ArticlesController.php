@@ -49,7 +49,7 @@ class ArticlesController implements iArticlesController
                 "title" => $article->getTitle(),
                 "text" => $article->getText(),
                 "postDate" => $article->getPostDate(),
-                "poster" => $poster->getUsername()
+                "poster" => $poster
             ];
             array_push($articlesArray, $articleObj );
         }
