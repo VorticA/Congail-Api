@@ -1,15 +1,10 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: viki8
- * Date: 6/8/2019
- * Time: 12:06 PM
+ * Attempts a PDO connection, in case it throws an exception, throw a new one with obscure information in order to hide info.
  */
 include_once ('config.php');
 
-/**
- * Attempts a PDO connection, in case it throws an exception, throw a new one with obscure information in order to hide info.
- */
+
 
 $pdo = null;
 try

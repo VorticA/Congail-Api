@@ -1,9 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: viki8
- * Date: 6/14/2019
- * Time: 1:03 PM
+ * An HTTP handler for Article requests
  */
 
 namespace App\Controllers\Front;
@@ -34,22 +31,34 @@ class FrontArticleHandler implements iFrontArticleHandler
         $this->session = $session;
     }
 
+    /**
+     * Handles a request to get the latest articles.
+     */
     public function latestHandler()
     {
         if(!isset($this->post['limit'])) throw new \Exception('Invalid info!');
         $this->controller->getLatestArticles($this->post['limit']);
     }
 
+    /**
+     * Handles a request to edit an article.
+     */
     public function editHandler()
     {
         $this->controller->editArticle($this->post,$this->session);
     }
 
+    /**
+     * Handles a request to uplaod an article.
+     */
     public function uploadHandler()
     {
         $this->controller->uploadArticle($this->post, $this->session);
     }
 
+    /**
+     * Handles a request to delete an article.
+     */
     public function deleteHandler()
     {
         $this->controller->deleteArticle($this->post['id'], $this->session);

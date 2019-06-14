@@ -1,9 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: viki8
- * Date: 6/12/2019
- * Time: 2:14 PM
+ * An MVC controller class for handling outside requests related to the database
  */
 
 namespace App\Controllers;
@@ -36,6 +33,9 @@ class ArticlesController implements iArticlesController
         $this->hasher = $hasher;
     }
 
+    /**
+     * Returns a JSON with the latest articles, with a limit to the amount of returned objects
+     */
     public function getLatestArticles(int $limit)
     {
         $articles = $this->articleRepository->getLatestArticles($limit);
@@ -57,6 +57,10 @@ class ArticlesController implements iArticlesController
 
     }
 
+
+    /**
+     * Processes and validates a request for article deletion.
+     */
     public function deleteArticle(int $id, array $userData)
     {
         if ($this->isValidUser($userData))
@@ -66,6 +70,9 @@ class ArticlesController implements iArticlesController
         else throw new \Exception("Invalid credentials.");
     }
 
+    /**
+     * Processes and validates a request for editing an article.
+     */
     public function editArticle(array $articleData, array $userData)
     {
         if ($this->isValidUser($userData))
@@ -80,6 +87,9 @@ class ArticlesController implements iArticlesController
         else throw new \Exception("Invalid credentials.");
     }
 
+    /**
+     * Processes and validates a request for article upload.
+     */
     public function uploadArticle(array $articleData, array $userData)
     {
         if ($this->isValidUser($userData))
@@ -93,6 +103,9 @@ class ArticlesController implements iArticlesController
         else throw new \Exception("Invalid credentials.");
     }
 
+    /**
+     * Validates if a valid user is logged in.
+     */
     private function isValidUser(array $data)
     {
         if (isset($data['userId']) && isset($data['password'])) {
@@ -110,11 +123,17 @@ class ArticlesController implements iArticlesController
         return false;
     }
 
+    /**
+     * Returns a User model, who is the supposed poster of the article.
+     */
     private function getPoster(int $id)
     {
         return $this->userRepository->getUserById($id);
     }
 
+    /**
+     * Simple field validation.
+     */
     private function isValidArticle(array $articleData)
     {
         if (isset($articleData['title']) && isset($articleData['text']))

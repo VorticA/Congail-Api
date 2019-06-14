@@ -1,9 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: viki8
- * Date: 6/11/2019
- * Time: 3:15 PM
+ * A simple model class for the "articles" table in the database
  */
 
 namespace App\Models;

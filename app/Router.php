@@ -1,9 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: viki8
- * Date: 6/10/2019
- * Time: 2:53 PM
+ * A "router" class which extracts request information from the URL
  */
 
 namespace App;
@@ -21,6 +18,9 @@ class Router
         $this->factory = $factory;
     }
 
+    /**
+     * Simply runs the router and gives the extracted info to the Controller Factory
+     */
     public function Route()
     {
         $self = $_SERVER['PHP_SELF'];

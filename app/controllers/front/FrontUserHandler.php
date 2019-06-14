@@ -1,9 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: viki8
- * Date: 6/10/2019
- * Time: 3:58 PM
+ * An HTTP handler for User requests
  */
 
 namespace App\Controllers\Front;
@@ -34,6 +31,9 @@ class FrontUserHandler implements iFrontUserHandler
         $this->session = $session;
     }
 
+    /**
+     * Handles a register attempt.
+     */
     public function registerHandler()
     {
         if (isset($this->session['userId']) && isset($this->session['password']))
@@ -45,6 +45,9 @@ class FrontUserHandler implements iFrontUserHandler
         }
     }
 
+    /**
+     * Handles a login attempt
+     */
     public function loginHandler()
     {
         if (isset($this->session['userId']) && isset($this->session['password']))
@@ -56,6 +59,9 @@ class FrontUserHandler implements iFrontUserHandler
         }
     }
 
+    /**
+     * Handles a "home" attempt, meaning it handles an attempt to get the logged user JSON
+     */
     public function homeHandler()
     {
         if (isset($this->session['userId']) && isset($this->session['password']))

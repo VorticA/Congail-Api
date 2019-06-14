@@ -1,23 +1,19 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: viki8
- * Date: 6/9/2019
- * Time: 4:25 PM
+ * The main LOGIC entry point of the application, no arguments are passed
+ * to this class. It consists of a try catch block. If an exception is thrown
+ * somewhere down the stream of class initializations and method calls
+ * it returns the exception's message as a JSON.
  */
 
 namespace App;
 
 
-use App\Controllers\ArticlesController;
-use App\Database\DatabaseQueryer;
-use App\Hash\Hasher;
-use App\Models\Article;
-use App\Repos\ArticleRepository;
-use App\Repos\UserRepository;
-
 class Application
 {
+    /**
+     * Where all the magic begins.
+     */
     public function run(){
         try
         {

@@ -1,9 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: viki8
- * Date: 6/10/2019
- * Time: 11:28 AM
+ * An MVC controller class for handling outside requests related to the database
  */
 
 namespace App\Controllers;
@@ -32,6 +29,9 @@ class UserController implements iUserController
         $this->hasher = $hasher;
     }
 
+    /**
+     * Attempts to register a User to the DB
+     */
     public function register(array $data)
     {
         $user = new User($data['username'], $this->hasher->EncodePassword($data['password']), $data['confirmPassword'], $data['email'], $data['confirmEmail']);

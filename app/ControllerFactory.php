@@ -1,9 +1,7 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: viki8
- * Date: 6/10/2019
- * Time: 3:41 PM
+ * A "factory" class which, based on the given information from a router,
+ * decides which HTTP handler should be initialized and which method should be called.
  */
 
 namespace App;
@@ -31,6 +29,9 @@ class ControllerFactory
         $this->pdo = $pdo;
     }
 
+    /**
+     * Simply runs the factory, which is a bunch of "if else" statements.
+     */
     public function RunController($data)
     {
         if ($data['handler']=="user")
