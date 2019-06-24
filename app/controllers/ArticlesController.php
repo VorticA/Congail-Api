@@ -112,7 +112,7 @@ class ArticlesController implements iArticlesController
             $user = $this->userRepository->getUserById($data['userId']);
             if (isset($user))
             {
-                if ($this->hasher->MatchPasswords($data['password'], $user->getPassword())) {
+                if ($this->hasher->MatchPasswords($data['password'], $user->getPassword()) && $user->getRoleId()!=3) {
                     return true;
                 }
                 return false;

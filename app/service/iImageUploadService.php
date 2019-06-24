@@ -6,7 +6,11 @@
  * Time: 9:01 PM
  */
 
+namespace App\Service;
+
 interface iImageUploadService
 {
-    public function AttemptUploadFile(array $fileData): bool;
+    public function isValidFile(array $fileData): bool;
+    public function generateFileName(array $fileData);
+    public function AttemptUploadFile(array $fileData, string $target): bool;
 }

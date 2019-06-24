@@ -13,5 +13,8 @@ define("DB_ARTICLES", "articles");
 define("DB_GALLERY", "gallery");
 
 
+define("FILES_FOULDER", "../files");
+
+
 define("ENC_PREFIX", "cgrules");
 define("ENC_ALGO", PASSWORD_DEFAULT);

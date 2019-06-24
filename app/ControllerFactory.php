@@ -8,12 +8,16 @@ namespace App;
 
 use App\Controllers\ArticlesController;
 use App\Controllers\Front\FrontArticleHandler;
+use App\Controllers\Front\FrontImageHandler;
 use App\Controllers\Front\FrontUserHandler;
+use App\Controllers\ImageController;
 use App\Controllers\UserController;
 use App\Database\DatabaseQueryer;
 use App\Hash\Hasher;
 use App\Repos\ArticleRepository;
+use App\Repos\ImageRepository;
 use App\Repos\UserRepository;
+use App\Service\ImageUploadService;
 
 include_once('pdo.php');
 
@@ -62,6 +66,33 @@ class ControllerFactory
                 $handler->deleteHandler();
             else if($data['method']=="upload")
                 $handler->uploadHandler();
+            else throw new \Exception("Invalid command!");
+        }
+        else if ($data['handler']=="image")
+        {
+            $hasher = new Hasher(ENC_PREFIX, ENC_ALGO);
+            $db = new DatabaseQueryer($this->pdo);
+            $imgrepo = new ImageRepository($db);
+            $userrepo = new UserRepository($db);
+            $service = new ImageUploadService($hasher, FILES_FOULDER);
+            $ctrl = new ImageController($imgrepo, $userrepo, $service, $hasher);
+            $handler = new FrontImageHandler($ctrl, $_POST, $_SESSION, $_FILES);
+            if ($data['method']=="edit")
+            {
+                $handler->editHandler();
+            }
+            else if($data['method']=="upload")
+            {
+                $handler->uploadHandler();
+            }
+            else if ($data['method']=="delete")
+            {
+                $handler->deleteHandler();
+            }
+            else if ($data['method']=="gallery")
+            {
+                $handler->galleryHandler();
+            }
             else throw new \Exception("Invalid command!");
         }
         else

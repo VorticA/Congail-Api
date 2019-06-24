@@ -9,6 +9,15 @@
 namespace App;
 
 
+use App\Controllers\Front\FrontImageHandler;
+use App\Controllers\ImageController;
+use App\Database\DatabaseQueryer;
+use App\Hash\Hasher;
+use App\Models\Image;
+use App\Repos\ImageRepository;
+use App\Repos\UserRepository;
+use App\Service\ImageUploadService;
+
 class Application
 {
     /**
