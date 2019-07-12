@@ -55,8 +55,10 @@ class ImageController implements iImageController
                     if ($this->imageUploadService->AttemptUploadFile($files['fileToUpload'], $name))
                     {
                         $this->imageRepository->uploadImage(new Image($imageData['title'], $imageData['description'], $name));
-                    } else throw new \Exception("Error uploading file.");
-                } else throw new \Exception("Invalid data.");
+                    }
+                    else throw new \Exception("Error uploading file.");
+                }
+                else throw new \Exception("Invalid data.");
             }
             else throw new \Exception("Invalid data.");
         }
@@ -76,7 +78,7 @@ class ImageController implements iImageController
                 "path" => $image->getImagePath(),
                 "title" => $image->getImageTitle(),
                 "text" => $image->getImageDescription(),
-                "postDate" => $image->getUploadDate(),
+                "postDate" => date('d/m/Y H:i' ,strtotime($image->getUploadDate())),
                 "poster" => $poster
             ];
             array_push($imageArray, $imageObj );

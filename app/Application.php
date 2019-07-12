@@ -30,6 +30,7 @@ class Application
 
             $router = new Router(new ControllerFactory($pdo));
             $router->Route();
+
         }
         catch (\Exception $e)
         {

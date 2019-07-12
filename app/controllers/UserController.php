@@ -56,6 +56,7 @@ class UserController implements iUserController
         else {
             $_SESSION['userId']=$user->getId();
             $_SESSION['password']=$data['password'];
+            throw new \Exception(var_export($_SESSION, true));
         }
     }
 
@@ -70,7 +71,7 @@ class UserController implements iUserController
 
             if (isset($user)) {
                 if ($this->hasher->MatchPasswords($data['password'], $user->getPassword())) {
-                    echo json_encode(['hasUser' => true, 'username' => $user->getUsername(), 'email' => $user->getEmail(), 'role' => $user->getRoleId()]);
+                    echo json_encode(['hasUser' => true, 'user' => ['id' => $user->getId(), 'username' => $user->getUsername(), 'email' => $user->getEmail(), 'role' => $user->getRoleId()]]);
                 } else throw new Exception("Invalid credentials!");
             }
             else throw new Exception("Invalid credentials.");

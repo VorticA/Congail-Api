@@ -48,7 +48,7 @@ class ArticlesController implements iArticlesController
                 "id" => $article->getId(),
                 "title" => $article->getTitle(),
                 "text" => $article->getText(),
-                "postDate" => $article->getPostDate(),
+                "postDate" => date('d/m/Y H:i' ,strtotime($article->getPostDate())),
                 "poster" => $poster
             ];
             array_push($articlesArray, $articleObj );

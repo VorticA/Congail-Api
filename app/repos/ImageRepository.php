@@ -52,6 +52,6 @@ class ImageRepository implements iImageRepository
     public function getFullGallery()
     {
         return $this->queryer->prepare("SELECT id, image_path AS path, image_title AS title, image_description AS description, 
-          DATE_FORMAT(upload_date, '%d/%m/%Y %H:%i') AS date, is_deleted AS isDeleted, poster_id as posterId FROM " . DB_NAME . "." . DB_GALLERY . " WHERE is_deleted=0")->execute()->fetchAllTo("App\\Models\\Image");
+          upload_date AS date, is_deleted AS isDeleted, poster_id as posterId FROM " . DB_NAME . "." . DB_GALLERY . " WHERE is_deleted=0 ORDER BY date")->execute()->fetchAllTo("App\\Models\\Image");
     }
 }
